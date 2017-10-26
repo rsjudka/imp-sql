@@ -1,0 +1,9 @@
+ProductID,ProductName,ProductPrice,VendorID,CategoryID
+1X1,Zzz Bag,100,PG,CP
+2X2,Easy Boot,70,MK,FW
+3X3,Cosy Sock,15,MK,FW
+4X4,Dura Boot,90,PG,FW
+5X5,Tiny Tent,150,MK,CP
+6X6,Biggy Tent,250,MK,CP
+7X7,Big Shoe,50,MK,FW
+8X8,Small Shoe,25,MK,CP
