@@ -22,6 +22,15 @@ public class query
                             "\tHAVING COUNT(*) > 1);"); 
         System.out.println("\nQuery1 result:");
         query1();
+
+        System.out.println("\n----------------------------------------------------------------------\n");
+
+        System.out.println("Running Query2:");
+        System.out.println("SELECT\tproduct.productid, productname, productprice, tid\n" +
+                            "FROM\tproduct, soldvia\n" +
+                            "WHERE\tproduct.productid = soldvia.productid;"); 
+        System.out.println("\nQuery2 result:");
+        query2();
     }
 
     public static void readProduct() throws IOException
@@ -91,6 +100,19 @@ public class query
                     }
                 }
                 it.previous();
+            }
+        }
+    }
+
+    public static void query2()
+    {
+        System.out.printf("%s    %s    %s    %s\n", "productid", "productname", "productprice", "tid");
+        for (sAttributes s :  sTable)
+        {
+            if (pTable.containsKey(s.getproductID()))
+            {
+                String key = s.getproductID();
+                System.out.printf("%-6s       %-10s     %-4s            %s\n", key, pTable.get(key).getname(), pTable.get(key).getprice(), s.gettid());
             }
         }
     }
