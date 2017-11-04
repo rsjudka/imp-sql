@@ -107,7 +107,7 @@ public class query
     public static void query2()
     {
         System.out.printf("%s    %s    %s    %s\n", "productid", "productname", "productprice", "tid");
-        for (sAttributes s :  sTable)
+        for (sAttributes s : sTable)
         {
             if (pTable.containsKey(s.getproductID()))
             {
