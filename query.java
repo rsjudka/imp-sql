@@ -11,6 +11,17 @@ public class query
         //calls methods for reading data and for commands
         readProduct();
         readSoldvia();
+
+        System.out.println("Running Query1:");
+        System.out.println("SELECT\tproductid, productname, productprice\n" +
+                            "FROM\tproduct\n" +
+                            "WHERE\tproductid IN\n" +
+                            "\t(SELECT productid\n" +
+                            "\tFROM soldvia\n" +
+                            "\tGROUP BY productid\n" +
+                            "\tHAVING COUNT(*) > 1);"); 
+        System.out.println("\nQuery1 result:");
+        query1();
     }
 
     public static void readProduct() throws IOException
@@ -54,5 +65,33 @@ public class query
 
         //sorts list
         Collections.sort(sTable, new sComp());
+    }
+
+    public static void query1()
+    {
+        System.out.printf("%s    %s    %s\n", "productid", "productname", "productprice");
+        String key = null;
+        sAttributes curr = null;
+        sAttributes next = null;
+        //iterate through soldvia table
+        ListIterator<sAttributes> it = sTable.listIterator();
+        while (it.hasNext())
+        {
+            curr = it.next();
+            if (it.hasNext())
+            {
+                next = it.next();
+                if (pTable.containsKey(curr.getproductID()) && curr.getproductID().equals(next.getproductID()))
+                {
+                    key = curr.getproductID();
+                    System.out.printf("%-6s       %-10s     %s\n",key, pTable.get(key).getname(), pTable.get(key).getprice());
+                    while (curr.getproductID().equals(next.getproductID()) && it.hasNext())
+                    {
+                        next = it.next();
+                    }
+                }
+                it.previous();
+            }
+        }
     }
 }
