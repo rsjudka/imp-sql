@@ -43,6 +43,15 @@ public class query
                             "\tWHERE product.productid = soldvia.productid;"); 
         System.out.println("\nQuery3 result:");
         query3();
+
+        System.out.println("\n----------------------------------------------------------------------\n");
+
+        System.out.println("Running Query4:");
+        System.out.println("SELECT\tp.productid, productname, productprice, tid, noofitems\n" +
+                            "FROM\tproduct p RIGHT OUTER JOIN soldvia s\n" +
+                            "ON\tp.productid = s.productid;"); 
+        System.out.println("\nQuery4 result:");
+        query4();
     }
 
     public static void readProduct() throws IOException
@@ -141,6 +150,23 @@ public class query
             if (Collections.binarySearch(sTable, new sAttributes(key, null, 0), new sComp()) < 0)
             {
                 System.out.printf("%-6s       %-10s     %s              %s          %s\n",key, value.getname(), value.getprice(), value.getvendorID(), value.getcategoryID());
+            }
+        }
+    }
+
+    public static void query4()
+    {
+        System.out.printf("%s    %s    %s    %s      %s\n", "productid", "productname", "productprice", "tid", "noofitems");
+        for (sAttributes s :  sTable)
+        {
+            if (pTable.containsKey(s.getproductID()))
+            {
+                String key = s.getproductID();
+                System.out.printf("%-6s       %-10s     %-4s            %s     %s\n", key, pTable.get(key).getname(), pTable.get(key).getprice(), s.gettid(), s.getnoofitems());
+            }
+            else
+            {
+                System.out.printf("%-6s       %s           %s            %s     %s\n", "NULL", "NULL", "NULL", s.gettid(), s.getnoofitems());
             }
         }
     }
